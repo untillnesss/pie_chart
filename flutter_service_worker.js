@@ -6,15 +6,15 @@ const RESOURCES = {
   "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"index.html": "c81cf03a4c370046f20e83181fac5964",
-"/": "c81cf03a4c370046f20e83181fac5964",
+"index.html": "ebe45864ecb942c540297d5736067e9e",
+"/": "ebe45864ecb942c540297d5736067e9e",
 "manifest.json": "15f73b7e8a8209c2206210b3ac8dea1b",
 "version.json": "4b6db237b3514a88107a422469adfb0f",
 "assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1",
 "assets/NOTICES": "43cada47437a1cd2c8df32e2f95bb3d2",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/AssetManifest.json": "99914b932bd37a50b983c5e7c90ae93b",
-"main.dart.js": "ec657710f74165ea28eb6f51191ae95c"
+"main.dart.js": "b5a2395b42d65bbdb770f2487f74907e"
 };
 
 // The application shell files that are downloaded before a service worker can
