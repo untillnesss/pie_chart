@@ -94,6 +94,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final chart = PieChart(
       key: ValueKey(key),
+      customLabel: (value, precentage) {
+        return TextSpan(
+          children: [
+            TextSpan(text: 'Write custom label')
+          ]
+        );
+      },
       dataMap: dataMap,
       animationDuration: Duration(milliseconds: 800),
       chartLegendSpacing: _chartLegendSpacing!,

@@ -30,6 +30,7 @@ class PieChartPainter extends CustomPainter {
   final DegreeOptions degreeOptions;
   final Color baseChartColor;
   final double? totalValue;
+  final TextSpan Function(String label, String percentage)? customLabel;
 
   late double _prevAngle;
 
@@ -40,6 +41,7 @@ class PieChartPainter extends CustomPainter {
     this.showChartValues,
     this.showChartValuesOutside,
     List<Color> colorList, {
+    this.customLabel,
     this.chartValueStyle,
     this.chartValueBackgroundColor,
     required List<double> values,
@@ -185,7 +187,13 @@ class PieChartPainter extends CustomPainter {
               ? formatChartValues!(_subParts.elementAt(i))
               : _subParts.elementAt(i).toStringAsFixed(this.decimalPlaces!);
 
-          if (showChartValues) {
+          if (this.customLabel != null) {
+            final precentage = (((_subParts.elementAt(i) / _total) * 100)
+                    .toStringAsFixed(this.decimalPlaces!) +
+                '%');
+            TextSpan label = this.customLabel!(value, precentage);
+            _drawCustomLabel(canvas, label, x, y, side);
+          } else {
             final name = showValuesInPercentage == true
                 ? (((_subParts.elementAt(i) / _total) * 100)
                         .toStringAsFixed(this.decimalPlaces!) +
@@ -219,6 +227,44 @@ class PieChartPainter extends CustomPainter {
       style: style ?? chartValueStyle,
       text: name,
     );
+    TextPainter tp = TextPainter(
+      text: span,
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout();
+
+    if (showChartValueLabel!) {
+      //Draw text background box
+      final rect = Rect.fromCenter(
+        center: Offset((side / 2 + x), (side / 2 + y)),
+        width: tp.width + 6,
+        height: tp.height + 4,
+      );
+      final rRect = RRect.fromRectAndRadius(rect, Radius.circular(4));
+      final paint = Paint()
+        ..color = chartValueBackgroundColor ?? Colors.grey[200]!
+        ..style = PaintingStyle.fill;
+      canvas.drawRRect(rRect, paint);
+    }
+    //Finally paint the text above box
+    tp.paint(
+      canvas,
+      Offset(
+        (side / 2 + x) - (tp.width / 2),
+        (side / 2 + y) - (tp.height / 2),
+      ),
+    );
+  }
+
+  void _drawCustomLabel(
+    Canvas canvas,
+    TextSpan customLabel,
+    double x,
+    double y,
+    double side,
+  ) {
+    TextSpan span = customLabel;
     TextPainter tp = TextPainter(
       text: span,
       textAlign: TextAlign.center,
